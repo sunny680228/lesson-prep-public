@@ -47,13 +47,13 @@
       <p class="data-status" id="data-status" role="status">公開版只提供教材索引，不內建或公開任何課文全文。</p>
     </section>
 
-    <section class="section text-section" id="text-section" hidden aria-labelledby="text-title">
+    <section class="section text-section" id="text-section" aria-labelledby="text-title">
       <div class="section-heading">
         <p class="step">STEP 02</p><h2 id="text-title">自行貼上課文</h2>
         <p>請貼上您合法取得、且本次有權使用的課文內容。文字只保留在目前頁面，不會上傳、儲存或公開。</p>
       </div>
       <div class="paste-card">
-        <div class="lesson-meta" id="lesson-meta"></div>
+        <div class="lesson-meta" id="lesson-meta">尚未選擇教材</div>
         <label for="lesson-input">課文全文</label>
         <textarea id="lesson-input" rows="16" placeholder="請在此貼上課文全文……" spellcheck="false"></textarea>
         <div class="paste-tools"><span id="text-count">尚未貼上課文</span><button type="button" class="clear-focus" id="clear-text">清除課文</button></div>
@@ -61,7 +61,7 @@
       </div>
     </section>
 
-    <section class="section focus-section" id="focus-section" hidden aria-labelledby="focus-title">
+    <section class="section focus-section" id="focus-section" aria-labelledby="focus-title">
       <div class="section-heading">
         <p class="step">STEP 03</p><h2 id="focus-title">聚焦學習重點</h2>
         <p>此步驟為選填。先選學習階段，再勾選本課要聚焦的學習內容與學習表現；若不需要，可直接進入 AI 共備。</p>
@@ -76,7 +76,7 @@
       </div>
     </section>
 
-    <section class="section task-section" id="task-section" hidden aria-labelledby="task-title">
+    <section class="section task-section" id="task-section" aria-labelledby="task-title">
       <div class="section-heading">
         <p class="step">STEP 04</p><h2 id="task-title">這次想請 AI 協助什麼？</h2>
         <p>可複選；系統會自動帶入版本、年級、課名與完整課文。</p>
@@ -107,6 +107,6 @@
   <footer><span class="brand-mark small">釧</span><p>佳釧老師設計｜讓備課更快，把專業留在課堂裡。</p></footer>
   <script src="learning-focus-data.js?v=20260902-public"></script>
   <script src="public-data.js?v=20260902-public"></script>
-  <script src="script.js?v=20260902-public"></script>
+  <script src="script.js?v=20260902-show-all-steps"></script>
 </body>
 </html>

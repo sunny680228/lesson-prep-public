@@ -17,26 +17,27 @@ function options(element, items, placeholder) {
   element.disabled = !items.length;
 }
 
-function hideFollowingSteps() {
-  $('#text-section').hidden = true;
-  $('#focus-section').hidden = true;
-  $('#task-section').hidden = true;
+function resetMaterialInput() {
+  current = null;
+  lessonInput.value = '';
+  $('#lesson-meta').textContent = '尚未選擇教材';
+  updateTextCount();
   $('#prompt-section').hidden = true;
 }
 
 options(publisher, data.map(item => item.publisher), '請選擇版本');
 
 publisher.addEventListener('change', () => {
-  current = null;
-  hideFollowingSteps();
+  resetMaterialInput();
   resetLearningFocus();
   const rows = data.filter(item => item.publisher === publisher.value);
   options(grade, rows.map(item => item.grade), rows.length ? '請選擇年級與冊別' : '目前沒有教材索引');
   options(lesson, [], '請先選年級');
-  status.textContent = rows.length ? `${publisher.value}共有 ${rows.length} 筆教材索引，網站未收錄課文內容。` : '請選擇其他版本。';
+  status.textContent = rows.length ? '請繼續選擇年級與課次。' : '請選擇其他版本。';
 });
 
 grade.addEventListener('change', () => {
+  resetMaterialInput();
   const rows = data.filter(item => item.publisher === publisher.value && item.grade === grade.value);
   options(lesson, rows.map(item => `${item.lesson}｜${item.title}`), '請選擇課次');
 });
@@ -49,9 +50,6 @@ lesson.addEventListener('change', () => {
   resetLearningFocus();
   updateTextCount();
   $('#lesson-meta').textContent = [current.publisher, current.grade, current.lesson, current.title, current.author].filter(Boolean).join('｜');
-  $('#text-section').hidden = false;
-  $('#focus-section').hidden = false;
-  $('#task-section').hidden = false;
   $('#prompt-section').hidden = true;
   status.textContent = `已選擇「${current.title}」。請在 STEP 02 自行貼上課文全文。`;
   setTimeout(() => $('#text-section').scrollIntoView({ behavior: 'smooth' }), 80);
