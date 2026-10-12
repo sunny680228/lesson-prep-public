@@ -26,3 +26,7 @@
 /* 尾頁主標與其他主要分頁標題使用相同字級 */
 .closing-copy h2{font-size:clamp(2.2rem,4.2vw,4rem)}
 @media(max-width:700px){.closing-copy h2{font-size:2.6rem}}
+
+/* STEP 03：閱讀素養教育實質內涵 */
+.reading-literacy-card{margin-top:20px;padding:24px;background:linear-gradient(145deg,#fffdf8,#f1ebf4);border:1px solid rgba(117,100,143,.24);border-radius:20px;box-shadow:var(--shadow)}.reading-literacy-heading{display:grid;grid-template-columns:1fr minmax(280px,420px);gap:28px;align-items:end}.reading-literacy-heading h3{margin:0;font-family:"Noto Serif TC","PMingLiU",serif;font-size:1.7rem}.reading-literacy-heading p:last-child{margin:.35rem 0 0;color:var(--muted)}.reading-options{margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}.reading-options .focus-category{border-top:0;padding:16px;border-radius:16px;background:rgba(255,255,255,.7)}
+@media(max-width:820px){.reading-literacy-heading{grid-template-columns:1fr}.reading-options{grid-template-columns:1fr}.reading-literacy-card{padding:20px}}

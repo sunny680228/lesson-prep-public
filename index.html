@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="佳釧老師設計的國語備課工具：從 AI 備課痛點出發，自行貼上課文、聚焦學習重點並產生完整共備提示詞。">
   <title>與 AI 共備：一站式的國語備課｜高效版</title>
-  <link rel="stylesheet" href="styles.css?v=20261012-closing-title-size">
+  <link rel="stylesheet" href="styles.css?v=20261012-reading-literacy">
 </head>
 <body>
   <a class="skip-link" href="#home-panel">跳到主要內容</a>
@@ -98,6 +98,22 @@
           <section class="focus-panel" aria-labelledby="content-focus-title"><h3 id="content-focus-title">學習內容</h3><p>文字篇章、文本表述與文化內涵</p><div id="content-options" class="focus-options"></div></section>
           <section class="focus-panel" aria-labelledby="performance-focus-title"><h3 id="performance-focus-title">學習表現</h3><p>聆聽、口語表達、識字、閱讀與寫作等</p><div id="performance-options" class="focus-options"></div></section>
         </div>
+        <section class="reading-literacy-card" aria-labelledby="reading-literacy-title">
+          <div class="reading-literacy-heading">
+            <div><p class="step">議題融入・選填</p><h3 id="reading-literacy-title">閱讀素養教育實質內涵</h3><p>國民小學階段（閱 E1 ～ 閱 E14）</p></div>
+            <label>選擇類別
+              <select id="reading-category">
+                <option value="">請選擇閱讀素養類別</option>
+                <option value="閱讀的歷程">閱讀的歷程</option>
+                <option value="閱讀的媒材">閱讀的媒材</option>
+                <option value="閱讀的情境脈絡">閱讀的情境脈絡</option>
+                <option value="閱讀的態度">閱讀的態度</option>
+                <option value="全部顯示">全部顯示</option>
+              </select>
+            </label>
+          </div>
+          <div id="reading-options" class="focus-options reading-options" hidden></div>
+        </section>
       </section>
       <section class="section task-section" id="task-section" aria-labelledby="task-title">
         <div class="section-heading"><p class="step">STEP 04</p><h2 id="task-title">這次想請 AI 協助什麼？</h2><p>可複選；系統會自動帶入版本、年級、課名與完整課文。產生後請複製完整提示詞，貼到 AI 直接對話使用。</p></div>
@@ -153,6 +169,6 @@
   <footer><span class="brand-mark small">釧</span><p>佳釧老師設計｜讓備課更快，把專業留在課堂裡。</p></footer>
   <script src="learning-focus-data.js?v=20260902-public"></script>
   <script src="public-data.js?v=20260902-writing-prompt"></script>
-  <script src="script.js?v=20261012-interactive-tab"></script>
+  <script src="script.js?v=20261012-reading-literacy"></script>
 </body>
 </html>

@@ -12,6 +12,24 @@ const learningStage = $('#learning-stage');
 const lessonInput = $('#lesson-input');
 let current = null;
 
+const readingLiteracyData = [
+  { category: '閱讀的歷程', code: '閱 E1', description: '認識一般生活情境中需要使用的，以及學習學科基礎知識所應具備的字詞彙。' },
+  { category: '閱讀的歷程', code: '閱 E2', description: '認識與領域相關的文本類型與寫作題材。' },
+  { category: '閱讀的歷程', code: '閱 E3', description: '熟悉與學科學習相關的文本閱讀策略。' },
+  { category: '閱讀的歷程', code: '閱 E4', description: '中高年級後需發展長篇文本的閱讀理解能力。' },
+  { category: '閱讀的歷程', code: '閱 E5', description: '發展檢索資訊、獲得資訊、整合資訊的數位閱讀能力。' },
+  { category: '閱讀的歷程', code: '閱 E6', description: '發展向文本提問的能力。' },
+  { category: '閱讀的歷程', code: '閱 E7', description: '發展詮釋、反思、評鑑文本的能力。' },
+  { category: '閱讀的媒材', code: '閱 E8', description: '低、中年級以紙本閱讀為主。' },
+  { category: '閱讀的媒材', code: '閱 E9', description: '高年級後可適當介紹數位文本及混合文本作為閱讀的媒材。' },
+  { category: '閱讀的媒材', code: '閱 E10', description: '中、高年級能從報章雜誌及其他閱讀媒材中汲取與學科相關的知識。' },
+  { category: '閱讀的情境脈絡', code: '閱 E11', description: '能在一般生活情境中，懂得運用文本習得的知識解決問題。' },
+  { category: '閱讀的態度', code: '閱 E12', description: '培養喜愛閱讀的態度。' },
+  { category: '閱讀的態度', code: '閱 E13', description: '願意廣泛接觸不同類型及不同學科主題的文本。' },
+  { category: '閱讀的態度', code: '閱 E14', description: '喜歡與他人討論、分享自己閱讀的文本。' }
+];
+const selectedReadingLiteracy = new Set();
+
 const pageTabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
 const pagePanels = [...document.querySelectorAll('[role="tabpanel"].page-panel')];
 
@@ -117,9 +135,13 @@ $('#clear-text').addEventListener('click', () => {
 
 function resetLearningFocus() {
   learningStage.value = '';
+  $('#reading-category').value = '';
+  selectedReadingLiteracy.clear();
   $('#focus-columns').hidden = true;
   $('#content-options').innerHTML = '';
   $('#performance-options').innerHTML = '';
+  $('#reading-options').innerHTML = '';
+  $('#reading-options').hidden = true;
   $('#focus-count').textContent = '尚未選擇學習重點';
 }
 
@@ -152,12 +174,46 @@ function renderFocusList(container, items) {
 function updateFocusCount() {
   const contentCount = $('#content-options').querySelectorAll('input:checked').length;
   const performanceCount = $('#performance-options').querySelectorAll('input:checked').length;
-  $('#focus-count').textContent = contentCount || performanceCount ? `已選擇學習內容 ${contentCount} 項、學習表現 ${performanceCount} 項` : '尚未選擇學習重點';
+  const readingCount = selectedReadingLiteracy.size;
+  $('#focus-count').textContent = contentCount || performanceCount || readingCount ? `已選擇學習內容 ${contentCount} 項、學習表現 ${performanceCount} 項、閱讀素養 ${readingCount} 項` : '尚未選擇學習重點';
   $('#prompt-section').hidden = true;
 }
 
 function selectedFocus(selector) {
   return [...document.querySelectorAll(`${selector} input:checked`)].map(input => input.dataset.focusText);
+}
+
+function renderReadingLiteracy(items) {
+  const container = $('#reading-options');
+  container.innerHTML = '';
+  const groups = {};
+  items.forEach(item => (groups[item.category] ??= []).push(item));
+  Object.entries(groups).forEach(([category, rows]) => {
+    const section = document.createElement('section');
+    section.className = 'focus-category';
+    const heading = document.createElement('h4');
+    heading.textContent = category;
+    section.append(heading);
+    rows.forEach(item => {
+      const value = `${item.code} ${item.description}`;
+      const label = document.createElement('label');
+      label.className = 'focus-item';
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.dataset.focusText = value;
+      input.checked = selectedReadingLiteracy.has(value);
+      input.addEventListener('change', () => {
+        if (input.checked) selectedReadingLiteracy.add(value);
+        else selectedReadingLiteracy.delete(value);
+        updateFocusCount();
+      });
+      const text = document.createElement('span');
+      text.innerHTML = `<span class="focus-code">${item.code}</span><span class="focus-description">${item.description}</span>`;
+      label.append(input, text);
+      section.append(label);
+    });
+    container.append(section);
+  });
 }
 
 learningStage.addEventListener('change', () => {
@@ -173,7 +229,23 @@ learningStage.addEventListener('change', () => {
   updateFocusCount();
 });
 
+$('#reading-category').addEventListener('change', event => {
+  const category = event.target.value;
+  const options = $('#reading-options');
+  if (!category) {
+    options.innerHTML = '';
+    options.hidden = true;
+    updateFocusCount();
+    return;
+  }
+  const rows = category === '全部顯示' ? readingLiteracyData : readingLiteracyData.filter(item => item.category === category);
+  renderReadingLiteracy(rows);
+  options.hidden = false;
+  updateFocusCount();
+});
+
 $('#clear-focus').addEventListener('click', () => {
+  selectedReadingLiteracy.clear();
   document.querySelectorAll('.focus-options input:checked').forEach(input => input.checked = false);
   updateFocusCount();
 });
@@ -211,7 +283,10 @@ $('#build-prompt').addEventListener('click', () => {
   const note = $('#custom-note').value.trim();
   const contentFocus = selectedFocus('#content-options');
   const performanceFocus = selectedFocus('#performance-options');
-  const focusBlock = contentFocus.length || performanceFocus.length ? `【本課學習重點】\n學習階段：${learningStage.value}\n學習內容：\n${contentFocus.length ? contentFocus.map(item => `- ${item}`).join('\n') : '- 未勾選'}\n學習表現：\n${performanceFocus.length ? performanceFocus.map(item => `- ${item}`).join('\n') : '- 未勾選'}\n\n` : '';
+  const readingFocus = [...selectedReadingLiteracy];
+  const learningBlock = contentFocus.length || performanceFocus.length ? `【本課學習重點】\n學習階段：${learningStage.value}\n學習內容：\n${contentFocus.length ? contentFocus.map(item => `- ${item}`).join('\n') : '- 未勾選'}\n學習表現：\n${performanceFocus.length ? performanceFocus.map(item => `- ${item}`).join('\n') : '- 未勾選'}\n\n` : '';
+  const readingBlock = readingFocus.length ? `【閱讀素養教育實質內涵】\n${readingFocus.map(item => `- ${item}`).join('\n')}\n\n` : '';
+  const focusBlock = learningBlock + readingBlock;
   const intro = `你是一位熟悉臺灣國小語文教學與 108 課綱的教學設計專家。請全程使用繁體中文，英文與數字兩側保留半形空格。\n\n【教材身分】\n版本：${current.publisher}\n年級冊別：${current.grade}\n課次：${current.lesson}\n課名：${current.title}\n文體：${genre.value}\n作者：${current.author || '未提供'}\n\n${focusBlock}【要完成的備課任務】\n`;
   const body = selected.map((task, index) => `任務 ${index + 1}｜${task.title}\n${task.prompt}`).join('\n\n');
   const ending = `\n\n${note ? `【教師補充需求】\n${note}\n\n` : ''}【課文全文】\n${text}\n\n請將不同任務分成清楚的標題區塊；先核對年級、課次、文體、學習重點與文本內容，再開始回答。若未提供學習重點，請依文本與年級提出最合適的建議。`;
