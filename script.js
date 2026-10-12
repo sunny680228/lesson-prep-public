@@ -16,7 +16,7 @@ const pageTabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
 const pagePanels = [...document.querySelectorAll('[role="tabpanel"].page-panel')];
 
 function showPage(name, { updateHash = true, focusTab = false } = {}) {
-  const validName = ['home', 'prep', 'closing'].includes(name) ? name : 'home';
+  const validName = ['home', 'prep', 'interactive', 'closing'].includes(name) ? name : 'home';
   pageTabs.forEach(tab => {
     const active = tab.dataset.tab === validName;
     tab.setAttribute('aria-selected', String(active));
@@ -49,10 +49,10 @@ document.querySelectorAll('[data-tab-link]').forEach(link => link.addEventListen
 }));
 window.addEventListener('hashchange', () => {
   const hash = location.hash.slice(1);
-  showPage(['home', 'prep', 'closing'].includes(hash) ? hash : hash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
+  showPage(['home', 'prep', 'interactive', 'closing'].includes(hash) ? hash : hash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
 });
 const initialHash = location.hash.slice(1);
-showPage(['home', 'prep', 'closing'].includes(initialHash) ? initialHash : initialHash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
+showPage(['home', 'prep', 'interactive', 'closing'].includes(initialHash) ? initialHash : initialHash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
 
 function options(element, items, placeholder) {
   element.innerHTML = `<option value="">${placeholder}</option>` + [...new Set(items)].map(value => `<option value="${value}">${value}</option>`).join('');

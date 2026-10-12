@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="佳釧老師設計的國語備課工具：從 AI 備課痛點出發，自行貼上課文、聚焦學習重點並產生完整共備提示詞。">
   <title>與 AI 共備：一站式的國語備課｜高效版</title>
-  <link rel="stylesheet" href="styles.css?v=20261012-presentation-pages">
+  <link rel="stylesheet" href="styles.css?v=20261012-interactive-tab">
 </head>
 <body>
   <a class="skip-link" href="#home-panel">跳到主要內容</a>
@@ -17,6 +17,7 @@
     <nav class="page-tabs" role="tablist" aria-label="演講分頁">
       <button type="button" id="tab-home" role="tab" aria-selected="true" aria-controls="home-panel" data-tab="home">首頁</button>
       <button type="button" id="tab-prep" role="tab" aria-selected="false" aria-controls="prep-panel" data-tab="prep" tabindex="-1">一站式備課</button>
+      <button type="button" id="tab-interactive" role="tab" aria-selected="false" aria-controls="interactive-panel" data-tab="interactive" tabindex="-1">互動教材提示詞</button>
       <button type="button" id="tab-closing" role="tab" aria-selected="false" aria-controls="closing-panel" data-tab="closing" tabindex="-1">尾頁</button>
     </nav>
   </header>
@@ -117,12 +118,26 @@
       </section>
     </section>
 
+    <section class="page-panel interactive-page" id="interactive-panel" role="tabpanel" aria-labelledby="tab-interactive" hidden>
+      <div class="interactive-header">
+        <div>
+          <p class="eyebrow">互動教材設計工具</p>
+          <h2>互動教材提示詞</h2>
+          <p>選擇教材類型與設計需求，快速整理可交給 AI 使用的完整提示詞。</p>
+        </div>
+        <a class="secondary" href="https://sunny680228.github.io/Interactive-Web-new/" target="_blank" rel="noopener noreferrer">另開完整頁面 ↗</a>
+      </div>
+      <div class="interactive-frame-wrap">
+        <iframe src="https://sunny680228.github.io/Interactive-Web-new/" title="互動教材提示詞網站" loading="lazy"></iframe>
+      </div>
+    </section>
+
     <section class="page-panel closing-page" id="closing-panel" role="tabpanel" aria-labelledby="tab-closing" hidden>
       <div class="closing-stage">
         <div class="closing-spark spark-one" aria-hidden="true">✦</div><div class="closing-spark spark-two" aria-hidden="true">✦</div>
         <div class="closing-copy">
           <p class="eyebrow">把時間還給教學</p>
-          <h2>別把備課變成<br><em>提示詞的苦工</em></h2>
+          <h2><span>別把備課變成</span><em>提示詞的苦工</em></h2>
           <p class="closing-line">讓工具成為你最高效的教學助手。</p>
           <div class="closing-chips" aria-label="結語重點"><span>少一點重複工</span><span>多一點教學判斷</span><span>提示詞交給工具</span><span>專業留給老師</span></div>
           <div class="closing-actions"><button class="primary" type="button" data-tab-jump="prep">再看一次備課工具</button><button class="secondary" type="button" data-tab-jump="home">回到首頁</button></div>
@@ -138,6 +153,6 @@
   <footer><span class="brand-mark small">釧</span><p>佳釧老師設計｜讓備課更快，把專業留在課堂裡。</p></footer>
   <script src="learning-focus-data.js?v=20260902-public"></script>
   <script src="public-data.js?v=20260902-writing-prompt"></script>
-  <script src="script.js?v=20261012-presentation-pages"></script>
+  <script src="script.js?v=20261012-interactive-tab"></script>
 </body>
 </html>
