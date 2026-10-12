@@ -3,109 +3,141 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="佳釧老師設計的公開版國語備課工具：選擇教材、自行貼上課文、聚焦學習重點並產生 AI 共備提示詞。">
-  <title>與 AI 共備：一站式的國語備課｜公開版</title>
-  <link rel="stylesheet" href="styles.css?v=20260902-morandi-purple">
+  <meta name="description" content="佳釧老師設計的國語備課工具：從 AI 備課痛點出發，自行貼上課文、聚焦學習重點並產生完整共備提示詞。">
+  <title>與 AI 共備：一站式的國語備課｜高效版</title>
+  <link rel="stylesheet" href="styles.css?v=20261012-presentation-pages">
 </head>
 <body>
-  <a class="skip-link" href="#lesson-picker">跳到教材選擇</a>
-  <header class="hero">
-    <nav class="nav" aria-label="主要導覽">
-      <a class="brand" href="#top" aria-label="回到首頁">
-        <img class="brand-avatar" src="assets/jia-chuan-avatar.png?v=20260901" alt="佳釧老師 Q 版人物 Logo">
-        <span class="brand-copy"><strong>我的語文課這樣教</strong><small>佳釧老師設計</small></span>
-      </a>
+  <a class="skip-link" href="#home-panel">跳到主要內容</a>
+  <header class="site-header">
+    <a class="brand" href="#home" data-tab-link="home" aria-label="回到首頁">
+      <img class="brand-avatar" src="assets/jia-chuan-avatar.png?v=20260901" alt="佳釧老師 Q 版人物 Logo">
+      <span class="brand-copy"><strong>我的語文課這樣教</strong><small>佳釧老師設計</small></span>
+    </a>
+    <nav class="page-tabs" role="tablist" aria-label="演講分頁">
+      <button type="button" id="tab-home" role="tab" aria-selected="true" aria-controls="home-panel" data-tab="home">首頁</button>
+      <button type="button" id="tab-prep" role="tab" aria-selected="false" aria-controls="prep-panel" data-tab="prep" tabindex="-1">一站式備課</button>
+      <button type="button" id="tab-closing" role="tab" aria-selected="false" aria-controls="closing-panel" data-tab="closing" tabindex="-1">尾頁</button>
     </nav>
-    <div class="hero-grid" id="top">
-      <div>
-        <p class="eyebrow">老師的國語備課捷徑・高效版</p>
-        <h1>與 AI 共備：<br><em class="nowrap">一站式的國語備課</em></h1>
-        <p class="lead">選好教材後自行貼上課文，勾選學習重點與備課任務，立即組成可直接交給 AI 的完整提示詞。</p>
-        <a class="primary" href="#lesson-picker">開始備課</a>
-      </div>
-      <div class="hero-note" aria-label="四步驟說明">
-        <span>01</span><p><b>選教材</b><br>版本、年級、課次、文體</p>
-        <span>02</span><p><b>貼課文</b><br>由使用者自行貼上全文</p>
-        <span>03</span><p><b>聚焦重點</b><br>選擇學習階段與學習重點</p>
-        <span>04</span><p><b>交給 AI</b><br>複製提示詞，貼到 AI 直接對話使用</p>
-      </div>
-    </div>
   </header>
 
   <main>
-    <section class="section picker-section" id="lesson-picker" aria-labelledby="picker-title">
-      <div class="section-heading">
-        <p class="step">STEP 01</p><h2 id="picker-title">選擇這次要備的課</h2>
-      </div>
-      <div class="picker-card">
-        <label>課本版本<select id="publisher"><option value="">請選擇版本</option></select></label>
-        <label>年級與冊別<select id="grade" disabled><option value="">請先選版本</option></select></label>
-        <label>課次<select id="lesson" disabled><option value="">請先選年級</option></select></label>
-        <label>文體<select id="genre"><option value="">請選擇文體</option><option value="記敘文">記敘文</option><option value="說明文">說明文</option><option value="議論文">議論文</option><option value="應用文">應用文</option><option value="故事">故事</option><option value="詩歌">詩歌</option></select></label>
-      </div>
-      <p class="data-status" id="data-status" role="status">只提供教材索引，不內建或公開任何課文全文。</p>
-    </section>
-
-    <section class="section text-section" id="text-section" aria-labelledby="text-title">
-      <div class="section-heading">
-        <p class="step">STEP 02</p><h2 id="text-title">自行貼上課文</h2>
-        <p>請自行貼上課文內容，文字只保留在目前頁面，不會上傳、儲存或公開。</p>
-      </div>
-      <div class="paste-card">
-        <div class="lesson-meta" id="lesson-meta">尚未選擇教材</div>
-        <label for="lesson-input">課文全文</label>
-        <textarea id="lesson-input" rows="16" placeholder="請在此貼上課文全文……" spellcheck="false"></textarea>
-        <div class="paste-tools"><span id="text-count">尚未貼上課文</span><button type="button" class="clear-focus" id="clear-text">清除課文</button></div>
-        <p class="privacy-note">隱私提醒：本工具不會保存您貼上的文字。重新整理或關閉頁面後，內容即會消失。</p>
-      </div>
-    </section>
-
-    <section class="section focus-section" id="focus-section" aria-labelledby="focus-title">
-      <div class="section-heading">
-        <p class="step">STEP 03</p><h2 id="focus-title">聚焦學習重點</h2>
-        <p>此步驟為選填。先選學習階段，再勾選本課要聚焦的學習內容與學習表現；若不需要，可直接進入 AI 共備。</p>
-      </div>
-      <div class="focus-stage-card">
-        <label>學習階段<select id="learning-stage"><option value="">暫不使用學習重點</option><option value="第一學習階段（一、二年級）">第一學習階段（一、二年級）</option><option value="第二學習階段（三、四年級）">第二學習階段（三、四年級）</option><option value="第三學習階段（五、六年級）">第三學習階段（五、六年級）</option></select></label>
-        <div class="focus-summary"><span id="focus-count">尚未選擇學習重點</span><button type="button" class="clear-focus" id="clear-focus">清除勾選</button></div>
-      </div>
-      <div class="focus-columns" id="focus-columns" hidden>
-        <section class="focus-panel" aria-labelledby="content-focus-title"><h3 id="content-focus-title">學習內容</h3><p>文字篇章、文本表述與文化內涵</p><div id="content-options" class="focus-options"></div></section>
-        <section class="focus-panel" aria-labelledby="performance-focus-title"><h3 id="performance-focus-title">學習表現</h3><p>聆聽、口語表達、識字、閱讀與寫作等</p><div id="performance-options" class="focus-options"></div></section>
+    <section class="page-panel home-page" id="home-panel" role="tabpanel" aria-labelledby="tab-home">
+      <div class="presentation-home">
+        <div class="home-intro">
+          <p class="eyebrow">從備課現場出發</p>
+          <h1>AI 備課，<br><em>為什麼還是這麼累？</em></h1>
+          <p class="home-lead">先勾出老師真正卡住的地方，再讓工具接手最耗時的那一段。</p>
+        </div>
+        <section class="pain-section" aria-labelledby="pain-title">
+          <div class="presentation-heading"><span>01</span><div><p>PAIN POINTS</p><h2 id="pain-title">AI 備課痛點</h2></div></div>
+          <div class="pain-grid">
+            <label class="pain-card"><input type="checkbox"><span class="pain-check" aria-hidden="true">✓</span><span><strong>「這個難度適合學生嗎？」</strong><small>難易度與年段嚴重脫鉤。</small></span></label>
+            <label class="pain-card"><input type="checkbox"><span class="pain-check" aria-hidden="true">✓</span><span><strong>「一本正經的瞎掰？」</strong><small>查核與除錯時間比自己出題還久。</small></span></label>
+            <label class="pain-card"><input type="checkbox"><span class="pain-check" aria-hidden="true">✓</span><span><strong>「要下什麼提示詞？」</strong><small>不知如何下精準指令的提示詞焦慮。</small></span></label>
+            <label class="pain-card"><input type="checkbox"><span class="pain-check" aria-hidden="true">✓</span><span><strong>「如何變成可以使用的內容？」</strong><small>不知道如何快速轉變成教材。</small></span></label>
+          </div>
+        </section>
+        <section class="solution-section" aria-labelledby="solution-title">
+          <div class="presentation-heading"><span>02</span><div><p>THE GAP</p><h2 id="solution-title">如何解決 AI 備課痛點？</h2></div></div>
+          <div class="solution-stair" aria-label="兩階段解決路徑">
+            <article class="solution-step first"><span class="step-number">01</span><div><h3>Gemini、NotebookLM</h3><p>工具很強，但還是要自己下提示詞。</p></div></article>
+            <div class="stair-arrow" aria-hidden="true">↘</div>
+            <article class="solution-step second"><span class="step-number">02</span><div><p class="gap-label">補上關鍵缺口</p><h3>一站式的國語備課</h3><p>選好教材後自行貼上課文，勾選學習重點與備課任務，立即得到可直接交給 AI 的完整提示詞。</p></div></article>
+          </div>
+          <button class="primary presentation-cta" type="button" data-tab-jump="prep">進入一站式備課 →</button>
+        </section>
       </div>
     </section>
 
-    <section class="section task-section" id="task-section" aria-labelledby="task-title">
-      <div class="section-heading">
-        <p class="step">STEP 04</p><h2 id="task-title">這次想請 AI 協助什麼？</h2>
-        <p>可複選；系統會自動帶入版本、年級、課名與完整課文。產生後請複製完整提示詞，貼到 AI 直接對話使用。</p>
-      </div>
-      <div class="task-grid" id="task-grid"></div>
-      <label class="custom-note">補充需求（選填）<textarea id="custom-note" rows="3" placeholder="例如：班上學生喜歡小組討論，希望活動能加入平板操作。"></textarea></label>
-      <div class="action-bar">
-        <div><span id="selected-count">尚未選擇任務</span><small>提示詞會在下方即時產生</small></div>
-        <button class="primary" type="button" id="build-prompt">產生備課提示詞</button>
-      </div>
+    <section class="page-panel" id="prep-panel" role="tabpanel" aria-labelledby="tab-prep" hidden>
+      <section class="hero prep-hero">
+        <div class="hero-grid" id="top">
+          <div>
+            <p class="eyebrow">老師的國語備課捷徑・高效版</p>
+            <h1>與 AI 共備：<br><em class="nowrap">一站式的國語備課</em></h1>
+            <p class="lead">選好教材後自行貼上課文，勾選學習重點與備課任務，立即組成可直接交給 AI 的完整提示詞。</p>
+            <a class="primary" href="#lesson-picker">開始備課</a>
+          </div>
+          <div class="hero-note" aria-label="四步驟說明">
+            <span>01</span><p><b>選教材</b><br>版本、年級、課次、文體</p>
+            <span>02</span><p><b>貼課文</b><br>由使用者自行貼上全文</p>
+            <span>03</span><p><b>聚焦重點</b><br>選擇學習階段與學習重點</p>
+            <span>04</span><p><b>交給 AI</b><br>複製提示詞，貼到 AI 直接對話使用</p>
+          </div>
+        </div>
+      </section>
+      <section class="section picker-section" id="lesson-picker" aria-labelledby="picker-title">
+        <div class="section-heading"><p class="step">STEP 01</p><h2 id="picker-title">選擇這次要備的課</h2></div>
+        <div class="picker-card">
+          <label>課本版本<select id="publisher"><option value="">請選擇版本</option></select></label>
+          <label>年級與冊別<select id="grade" disabled><option value="">請先選版本</option></select></label>
+          <label>課次<select id="lesson" disabled><option value="">請先選年級</option></select></label>
+          <label>文體<select id="genre"><option value="">請選擇文體</option><option value="記敘文">記敘文</option><option value="說明文">說明文</option><option value="議論文">議論文</option><option value="應用文">應用文</option><option value="故事">故事</option><option value="詩歌">詩歌</option></select></label>
+        </div>
+        <p class="data-status" id="data-status" role="status">只提供教材索引，不內建或公開任何課文全文。</p>
+      </section>
+      <section class="section text-section" id="text-section" aria-labelledby="text-title">
+        <div class="section-heading"><p class="step">STEP 02</p><h2 id="text-title">自行貼上課文</h2><p>請自行貼上課文內容，文字只保留在目前頁面，不會上傳、儲存或公開。</p></div>
+        <div class="paste-card">
+          <div class="lesson-meta" id="lesson-meta">尚未選擇教材</div>
+          <label for="lesson-input">課文全文</label>
+          <textarea id="lesson-input" rows="16" placeholder="請在此貼上課文全文……" spellcheck="false"></textarea>
+          <div class="paste-tools"><span id="text-count">尚未貼上課文</span><button type="button" class="clear-focus" id="clear-text">清除課文</button></div>
+          <p class="privacy-note">隱私提醒：本工具不會保存您貼上的文字。重新整理或關閉頁面後，內容即會消失。</p>
+        </div>
+      </section>
+      <section class="section focus-section" id="focus-section" aria-labelledby="focus-title">
+        <div class="section-heading"><p class="step">STEP 03</p><h2 id="focus-title">聚焦學習重點</h2><p>此步驟為選填。先選學習階段，再勾選本課要聚焦的學習內容與學習表現；若不需要，可直接進入 AI 共備。</p></div>
+        <div class="focus-stage-card">
+          <label>學習階段<select id="learning-stage"><option value="">暫不使用學習重點</option><option value="第一學習階段（一、二年級）">第一學習階段（一、二年級）</option><option value="第二學習階段（三、四年級）">第二學習階段（三、四年級）</option><option value="第三學習階段（五、六年級）">第三學習階段（五、六年級）</option></select></label>
+          <div class="focus-summary"><span id="focus-count">尚未選擇學習重點</span><button type="button" class="clear-focus" id="clear-focus">清除勾選</button></div>
+        </div>
+        <div class="focus-columns" id="focus-columns" hidden>
+          <section class="focus-panel" aria-labelledby="content-focus-title"><h3 id="content-focus-title">學習內容</h3><p>文字篇章、文本表述與文化內涵</p><div id="content-options" class="focus-options"></div></section>
+          <section class="focus-panel" aria-labelledby="performance-focus-title"><h3 id="performance-focus-title">學習表現</h3><p>聆聽、口語表達、識字、閱讀與寫作等</p><div id="performance-options" class="focus-options"></div></section>
+        </div>
+      </section>
+      <section class="section task-section" id="task-section" aria-labelledby="task-title">
+        <div class="section-heading"><p class="step">STEP 04</p><h2 id="task-title">這次想請 AI 協助什麼？</h2><p>可複選；系統會自動帶入版本、年級、課名與完整課文。產生後請複製完整提示詞，貼到 AI 直接對話使用。</p></div>
+        <div class="task-grid" id="task-grid"></div>
+        <label class="custom-note">補充需求（選填）<textarea id="custom-note" rows="3" placeholder="例如：班上學生喜歡小組討論，希望活動能加入平板操作。"></textarea></label>
+        <div class="action-bar"><div><span id="selected-count">尚未選擇任務</span><small>提示詞會在下方即時產生</small></div><button class="primary" type="button" id="build-prompt">產生備課提示詞</button></div>
+      </section>
+      <section class="section prompt-section" id="prompt-section" hidden aria-labelledby="prompt-title">
+        <div class="section-heading inline-heading"><div><p class="step">READY</p><h2 id="prompt-title">提示詞已經幫您整理好</h2></div><span class="ready-badge">可直接使用</span></div>
+        <textarea id="prompt-output" aria-label="完整備課提示詞" spellcheck="false"></textarea>
+        <div class="prompt-actions">
+          <button class="primary" type="button" id="copy-prompt">複製完整提示詞</button>
+          <button class="secondary" type="button" id="download-prompt">下載文字檔</button>
+          <a class="secondary" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">開啟 ChatGPT ↗</a>
+          <a class="secondary" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">開啟 Gemini ↗</a>
+        </div>
+        <p id="copy-status" class="copy-status" role="status"></p>
+      </section>
     </section>
 
-    <section class="section prompt-section" id="prompt-section" hidden aria-labelledby="prompt-title">
-      <div class="section-heading inline-heading">
-        <div><p class="step">READY</p><h2 id="prompt-title">提示詞已經幫您整理好</h2></div>
-        <span class="ready-badge">可直接使用</span>
+    <section class="page-panel closing-page" id="closing-panel" role="tabpanel" aria-labelledby="tab-closing" hidden>
+      <div class="closing-stage">
+        <div class="closing-spark spark-one" aria-hidden="true">✦</div><div class="closing-spark spark-two" aria-hidden="true">✦</div>
+        <div class="closing-copy">
+          <p class="eyebrow">把時間還給教學</p>
+          <h2>別把備課變成<br><em>提示詞的苦工</em></h2>
+          <p class="closing-line">讓工具成為你最高效的教學助手。</p>
+          <div class="closing-chips" aria-label="結語重點"><span>少一點重複工</span><span>多一點教學判斷</span><span>提示詞交給工具</span><span>專業留給老師</span></div>
+          <div class="closing-actions"><button class="primary" type="button" data-tab-jump="prep">再看一次備課工具</button><button class="secondary" type="button" data-tab-jump="home">回到首頁</button></div>
+        </div>
+        <div class="closing-visual" aria-label="佳釧老師與 AI 共備">
+          <div class="orbit orbit-one"><span>AI</span></div><div class="orbit orbit-two"><span>教學</span></div>
+          <div class="avatar-halo"><img src="assets/jia-chuan-avatar.png?v=20260901" alt="佳釧老師 Q 版人物"></div>
+          <p>工具做苦工<br><strong>老師做判斷</strong></p>
+        </div>
       </div>
-      <textarea id="prompt-output" aria-label="完整備課提示詞" spellcheck="false"></textarea>
-      <div class="prompt-actions">
-        <button class="primary" type="button" id="copy-prompt">複製完整提示詞</button>
-        <button class="secondary" type="button" id="download-prompt">下載文字檔</button>
-        <a class="secondary" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">開啟 ChatGPT ↗</a>
-        <a class="secondary" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">開啟 Gemini ↗</a>
-      </div>
-      <p id="copy-status" class="copy-status" role="status"></p>
     </section>
   </main>
   <footer><span class="brand-mark small">釧</span><p>佳釧老師設計｜讓備課更快，把專業留在課堂裡。</p></footer>
   <script src="learning-focus-data.js?v=20260902-public"></script>
   <script src="public-data.js?v=20260902-writing-prompt"></script>
-  <script src="script.js?v=20260902-show-all-steps"></script>
+  <script src="script.js?v=20261012-presentation-pages"></script>
 </body>
 </html>

@@ -12,6 +12,48 @@ const learningStage = $('#learning-stage');
 const lessonInput = $('#lesson-input');
 let current = null;
 
+const pageTabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
+const pagePanels = [...document.querySelectorAll('[role="tabpanel"].page-panel')];
+
+function showPage(name, { updateHash = true, focusTab = false } = {}) {
+  const validName = ['home', 'prep', 'closing'].includes(name) ? name : 'home';
+  pageTabs.forEach(tab => {
+    const active = tab.dataset.tab === validName;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+    if (active && focusTab) tab.focus();
+  });
+  pagePanels.forEach(panel => panel.hidden = panel.id !== `${validName}-panel`);
+  if (updateHash) history.replaceState(null, '', `#${validName}`);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+pageTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => showPage(tab.dataset.tab));
+  tab.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    let nextIndex = index;
+    if (event.key === 'ArrowRight') nextIndex = (index + 1) % pageTabs.length;
+    if (event.key === 'ArrowLeft') nextIndex = (index - 1 + pageTabs.length) % pageTabs.length;
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = pageTabs.length - 1;
+    showPage(pageTabs[nextIndex].dataset.tab, { focusTab: true });
+  });
+});
+
+document.querySelectorAll('[data-tab-jump]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.tabJump)));
+document.querySelectorAll('[data-tab-link]').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  showPage(link.dataset.tabLink);
+}));
+window.addEventListener('hashchange', () => {
+  const hash = location.hash.slice(1);
+  showPage(['home', 'prep', 'closing'].includes(hash) ? hash : hash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
+});
+const initialHash = location.hash.slice(1);
+showPage(['home', 'prep', 'closing'].includes(initialHash) ? initialHash : initialHash === 'lesson-picker' ? 'prep' : 'home', { updateHash: false });
+
 function options(element, items, placeholder) {
   element.innerHTML = `<option value="">${placeholder}</option>` + [...new Set(items)].map(value => `<option value="${value}">${value}</option>`).join('');
   element.disabled = !items.length;
